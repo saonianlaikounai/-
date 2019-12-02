@@ -17,8 +17,8 @@
     <div class="sider">
         <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
         <div class="user_info">
-            <img src="images/2.jpg" alt="person">
-            <span>欢迎&nbsp;&nbsp;李思思</span>
+            <img class="touxiang" src="images/2.jpg" alt="person">
+            <span>欢迎&nbsp;&nbsp;<i id="myName">李思思</i></span>
             <b>管理员</b>
         </div>
         <div class="menu">
@@ -43,7 +43,7 @@
         </form>
         <div class="user_center_link">
             <a href="user.html" onclick="setMenu(3,0)" target="main_frame">个人中心</a>
-            <img src="images/2.jpg" alt="person">
+            <img class="touxiang" src="images/2.jpg" alt="person">
             <a id="LoginOut" href="#"><i class="iconfont icon-tuichu"></i> 退出</a>
         </div>
     </div>
@@ -114,6 +114,16 @@
                 }
             })
         });
+
+        //直接发送Ajax请求，调用接口获取管理员信息，把拿到的结果渲染到页面
+        $.get('http://localhost:8000/admin/getuser', function(res) {
+            if (res.code == 200) {
+                //更改头像
+                $('.touxiang').prop('src', res.data.user_pic);
+                //更改管理员名字
+                $('#myName').text(res.data.nickname).css('font-style', 'normal');
+            }
+        })
     </script>
 </body>
 
