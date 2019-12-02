@@ -1,4 +1,3 @@
-var baseUrl = 'http://localhost:8000/';
 var user = {
     //登录方法
     login: function(username, password, callback) {

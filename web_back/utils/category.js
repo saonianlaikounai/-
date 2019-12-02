@@ -1,4 +1,3 @@
-var baseUrl = 'http://localhost:8000/';
 var category = {
     //获取分类
     get: function(callback) {
