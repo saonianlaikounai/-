@@ -73,7 +73,15 @@
             }
             // 调用接口验证用户名和密码是否正确
             // $.post(请求url， 请求参数， 回调函数， 返回数据类型);
-            user.login(username, password);
+            user.login(username, password, function(res) {
+                $('#myMsg').text(res.msg);
+                $('#myModal').modal('show'); // 显示弹框
+                if (res.code === 200) {
+                    // 成功，跳转到后台首页
+                    location.href = 'index.html';
+                }
+
+            });
         });
     </script>
 </body>
