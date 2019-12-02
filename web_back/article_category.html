@@ -64,7 +64,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="control-label">分类别名:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-slug">
                         </div>
                     </form>
                 </div>
@@ -83,32 +83,55 @@
         });
 
         $('#model_shutoff').click(function() {
-            alert('shutoff');
-            $('#addModal').modal('hide');
+            //点击关闭按钮事件
+            // alert('shutoff');
+            $('#addModal').modal('hide'); //让模态框隐藏
         });
 
         $('#model_add').click(function() {
-            alert('add');
-            $('#addModal').modal('hide');
-        });
-
-        $('.category_table').delegate('a', 'click', function() {
-            if ($(this).hasClass('btn-info')) {
-                $('#addModal .modal-title').html('修改分类名称');
-                $('#addModal').modal('show');
+            //点击新增的单击事件，获取输入框的值
+            var name = $('#recipient-name').val().trim();
+            var slug = $('#recipient-slug').val().trim();
+            //判断是否为空
+            if (name === '' || slug === '') {
+                alert('不能为空');
+                return;
             }
-        })
+            //发送Ajax请求完成添加
+            //ES6语法，如果对象的键和值同名，则可以写一个s
+            $.post('http://localhost:8000/admin/category_add', {
+                name,
+                slug
+            }, function(res) {
+                if (res.code == 200) {
+                    //从新渲染页面
+                    loadData();
+                }
+            });
+            // alert('add');
+            $('#addModal').modal('hide'); //让模态框隐藏
+        });
+        //点击修改的时候也弹出模态框，和添加的模态框是一个，会增加难度。
+        // $('.category_table').delegate('a', 'click', function() {
+        //     if ($(this).hasClass('btn-info')) {
+        //         $('#addModal .modal-title').html('修改分类名称');
+        //         $('#addModal').modal('show');
+        //     }
+        // })
     </script>
     <script>
         //------------------------------获取列别------------
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8000/admin/category_search',
-            success: function(res) {
-                var str = '';
-                //遍历数据，拼接str
-                res.data.forEach(function(item) {
-                    str += ` 
+        loadData();
+
+        function loadData() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8000/admin/category_search',
+                success: function(res) {
+                    var str = '';
+                    //遍历数据，拼接str
+                    res.data.forEach(function(item) {
+                        str += ` 
                     <tr>
                         <td>${item.name}</td>
                         <td>${item.slug}</td>
@@ -117,11 +140,12 @@
                             <a href="javascript:;" class="btn btn-danger btn-xs">删除${item.id}</a>
                         </td>
                     </tr>`;
-                });
-                //最终，把拼接号的结果放到
-                $('tbody').html(str);
-            }
-        });
+                    });
+                    //最终，把拼接号的结果放到
+                    $('tbody').html(str);
+                }
+            });
+        }
     </script>
 </body>
 
