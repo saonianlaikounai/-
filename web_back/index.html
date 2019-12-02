@@ -53,7 +53,6 @@
     </div>
 
 
-
     <script>
         var $level01 = $('.level01');
         var $subli = $('.level02 li')
@@ -105,26 +104,8 @@
             }
         }
     </script>
+    <script src="utils/user.js"></script>
     <script>
-        var user = {
-            logout: function() {
-                $.post('http://localhost:8000/admin/logout', function(res) {
-                    if (res.code == 200) {
-                        location.href = 'login.html';
-                    }
-                })
-            },
-            getInfo: function() {
-                $.get('http://localhost:8000/admin/getuser', function(res) {
-                    if (res.code == 200) {
-                        //更改头像
-                        $('.touxiang').prop('src', res.data.user_pic);
-                        //更改管理员名字
-                        $('#myName').text(res.data.nickname).css('font-style', 'normal');
-                    }
-                })
-            }
-        };
         $('#LoginOut').click(function(e) {
             e.preventDefault();
             user.logout();

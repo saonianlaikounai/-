@@ -55,26 +55,8 @@
     </div>
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="utils/user.js"></script>
     <script>
-        var user = {
-            login: function(username, password) {
-                $.post('http://localhost:8000/admin/login', {
-                    user_name: username,
-                    password: password
-                }, function(res) {
-                    // console.log(res);
-                    // alert(res.msg);
-                    $('#myMsg').text(res.msg);
-                    $('#myModal').modal('show'); // 显示弹框
-                    if (res.code === 200) {
-                        // 成功，跳转到后台首页
-                        location.href = 'index.html';
-                    }
-                });
-            }
-        }
-
-
         // 点击登录的时候，阻止表单提交。获取用户名和密码
         // 调用接口验证用户名和密码是否正确。给出提示；如果正确，跳转到后台首页；如果不正确，则提示错误信息
 
