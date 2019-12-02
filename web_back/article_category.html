@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-
+    <script src="utils/category.js"></script>
     <script>
         $('#addModal').modal({
             show: false,
@@ -98,11 +98,7 @@
                 return;
             }
             //发送Ajax请求完成添加
-            //ES6语法，如果对象的键和值同名，则可以写一个s
-            $.post('http://localhost:8000/admin/category_add', {
-                name,
-                slug
-            }, function(res) {
+            category(name, slug, function(res) {
                 if (res.code == 200) {
                     //从新渲染页面
                     loadData();
@@ -123,27 +119,23 @@
         loadData();
 
         function loadData() {
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:8000/admin/category_search',
-                success: function(res) {
-                    var str = '';
-                    //遍历数据，拼接str
-                    res.data.forEach(function(item) {
-                        str += ` 
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.slug}</td>
-                        <td class="text-center">
-                            <a href="javascript:;" class="btn btn-info btn-xs">编辑${item.id}</a>
-                            <a href="javascript:;" class="btn btn-danger btn-xs">删除${item.id}</a>
-                        </td>
-                    </tr>`;
-                    });
-                    //最终，把拼接号的结果放到
-                    $('tbody').html(str);
-                }
-            });
+            category.get(function(res) {
+                var str = '';
+                //遍历数据，拼接str
+                res.data.forEach(function(item) {
+                    str += ` 
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.slug}</td>
+                    <td class="text-center">
+                        <a href="javascript:;" class="btn btn-info btn-xs">编辑${item.id}</a>
+                        <a href="javascript:;" class="btn btn-danger btn-xs">删除${item.id}</a>
+                    </td>
+                </tr>`;
+                });
+                //最终，把拼接号的结果放到
+                $('tbody').html(str);
+            })
         };
     </script>
 </body>
