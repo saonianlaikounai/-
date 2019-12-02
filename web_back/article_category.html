@@ -99,7 +99,7 @@
                 return;
             }
             //发送Ajax请求完成添加
-            category(name, slug, function(res) {
+            category.add(name, slug, function(res) {
                 if (res.code == 200) {
                     //从新渲染页面
                     loadData();
@@ -130,7 +130,7 @@
                     <td>${item.slug}</td>
                     <td class="text-center">
                         <a href="javascript:;" class="btn btn-info btn-xs">编辑${item.id}</a>
-                        <a href="javascript:;" class="btn btn-danger btn-xs">删除${item.id}</a>
+                        <a href="javascript:;" class="btn btn-danger btn-xs deleted" data-id="${item.id}" >删除${item.id}</a>
                     </td>
                 </tr>`;
                 });
@@ -138,6 +138,14 @@
                 $('tbody').html(str);
             })
         };
+        //--------------------------删除文章分类功能------------------------
+        $('body').on('click', '.deleted', function() {
+            var myid = $(this).attr('data-id')
+            category.delete(myid, function(res) {
+                alert(res.msg)
+                loadData();
+            });
+        })
     </script>
 </body>
 

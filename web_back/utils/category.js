@@ -21,8 +21,12 @@ var category = {
         });
     },
     //删除分类
-    delete: function() {
-
+    delete: function(myid, callback) {
+        $.post(deleteCategory, {
+            id: myid
+        }, function(res) {
+            callback(res);
+        })
     },
     //编辑分类
 }
