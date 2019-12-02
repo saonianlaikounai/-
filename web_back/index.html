@@ -106,24 +106,31 @@
         }
     </script>
     <script>
+        var user = {
+            logout: function() {
+                $.post('http://localhost:8000/admin/logout', function(res) {
+                    if (res.code == 200) {
+                        location.href = 'login.html';
+                    }
+                })
+            },
+            getInfo: function() {
+                $.get('http://localhost:8000/admin/getuser', function(res) {
+                    if (res.code == 200) {
+                        //更改头像
+                        $('.touxiang').prop('src', res.data.user_pic);
+                        //更改管理员名字
+                        $('#myName').text(res.data.nickname).css('font-style', 'normal');
+                    }
+                })
+            }
+        };
         $('#LoginOut').click(function(e) {
             e.preventDefault();
-            $.post('http://localhost:8000/admin/logout', function(res) {
-                if (res.code == 200) {
-                    location.href = 'login.html';
-                }
-            })
+            user.logout();
         });
-
         //直接发送Ajax请求，调用接口获取管理员信息，把拿到的结果渲染到页面
-        $.get('http://localhost:8000/admin/getuser', function(res) {
-            if (res.code == 200) {
-                //更改头像
-                $('.touxiang').prop('src', res.data.user_pic);
-                //更改管理员名字
-                $('#myName').text(res.data.nickname).css('font-style', 'normal');
-            }
-        })
+        user.getInfo();
     </script>
 </body>
 
