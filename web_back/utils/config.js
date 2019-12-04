@@ -22,3 +22,8 @@ var deleteCategory = 'http://localhost:8000/admin/category_delete';
 //    名称  类型  	说明                   
 //   msg 	string	文字信息  ‘编辑成功’   ‘编辑失败’
 var redact = 'http://localhost:8000/admin/category_edit';
+var apis = {
+    //-------------文章接口
+    article_get: baseUrl + 'admin/search' //获取文章
+        ,
+}
