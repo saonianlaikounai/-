@@ -111,8 +111,8 @@
             <td>{{v.name}}</td>
             <td>{{v.slug}}</td>
             <td class="text-center ">
-                <a href="javascript:; " class="btn btn-info btn-xs redact " data-myid="{{v.id}} " data-name="{{v.name}}" data-slug="{{v.slug}}">编辑{{v.id}}</a>
-                <a href="javascript:; " class="btn btn-danger btn-xs deleted " data-id="{{v.id}} ">{{v.id}}</a>
+                <a href="javascript:; " class="btn btn-info btn-xs redact " data-myid="{{v.id}} " data-name="{{v.name}}" data-slug="{{v.slug}}">编辑</a>
+                <a href="javascript:; " class="btn btn-danger btn-xs deleted " data-id="{{v.id}} ">删除</a>
             </td>
         </tr>`; {{/each}}
     </script>
@@ -169,10 +169,14 @@
         };
         //--------------------------删除文章分类功能------------------------
         $('body').on('click', '.deleted', function() {
-            var myid = $(this).attr('data-id')
+            if (!confirm('确定删除吗？')) return;
+            var myid = $(this).attr('data-id');
+            var that = $(this);
             category.delete(myid, function(res) {
-                alert(res.msg)
+                alert(res.msg);
                 loadData();
+                //第二个方案
+                // that.parents('tr').remove();
             });
         });
         //----------------------编辑功能----------------------
