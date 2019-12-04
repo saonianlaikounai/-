@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/jquery.pagination.css">
     <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery.pagination.min.js"></script>
 </head>
 
 <body>
@@ -78,19 +80,7 @@
             </table>
 
             <div class="row text-center">
-                <ul class="pagination pagination-sm">
-                    <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-                    <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">6</a></li>
-                    <li class="page-item"><a href="#" class="page-link">7</a></li>
-                    <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-                    <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-                </ul>
+                <div id="pagination" class="page"></div>
             </div>
 
         </div>
@@ -125,13 +115,31 @@
             window.parent.setMenu(1, 1);
         });
         //--------------------获取数据-------------
-        var data = {};
-        article.get(data, function(res) {
-            var str = templat('article', {
-                xyz: res.data
+        var data = {
+            page: 1
+        };
+        loadData();
+
+        function loadData() {
+            article.get(data, function(res) {
+                var str = template('article', {
+                    xyz: res.data
+                });
+                $('tbody').html(str);
+                showPage(res.page, res.totalPage);
             });
-            $('tbody').html(str);
-        });
+        };
+
+        function showPage(c, t) {
+            $("#pagination").pagination({
+                currentPage: c,
+                totalPage: t,
+                callback: function(current) {
+                    data.page = current;
+                    loadData()
+                }
+            });
+        };
     </script>
 
 </body>
