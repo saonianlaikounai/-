@@ -16,4 +16,12 @@ var article = {
             contentType: false
         });
     },
+    edit: function(callback) {
+
+    },
+    del: function(id, callback) {
+        $.get(apis.category_del, { id }, function(res) {
+            callback(res);
+        })
+    }
 }

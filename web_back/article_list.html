@@ -104,7 +104,7 @@
 
             <td class="text-center">
                 <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+                <a href="javascript:;" class="btn btn-danger btn-xs" data-id="{{val.id}}">删除</a>
             </td>
         </tr>
         {{/each}}
@@ -140,6 +140,21 @@
                 }
             });
         };
+        //---------------------------编辑----------------
+        $('body').on('click', '.btn-default', function() {
+                location.href = 'artcle_edit.html';
+            })
+            //--------------------------删除---------------
+
+        $('body').on('click', '.btn-danger', function() {
+            // alert(132)
+            // alert($(this).attr('data-id'));
+            if (!confirm('确定要删除吗？')) return;
+            var id = $(this).attr('data-id');
+            article.del(id, function(res) {
+                loadData();
+            })
+        })
     </script>
 
 </body>
