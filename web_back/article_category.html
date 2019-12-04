@@ -104,6 +104,18 @@
     </div>
     <script src="utils/config.js "></script>
     <script src="utils/category.js "></script>
+    <script src="utils/template-web.js"></script>
+    <script type="text/html" id="moban">
+        {{each arr v}}
+        <tr>
+            <td>{{v.name}}</td>
+            <td>{{v.slug}}</td>
+            <td class="text-center ">
+                <a href="javascript:; " class="btn btn-info btn-xs redact " data-myid="{{v.id}} " data-name="{{v.name}}" data-slug="{{v.slug}}">编辑{{v.id}}</a>
+                <a href="javascript:; " class="btn btn-danger btn-xs deleted " data-id="{{v.id}} ">{{v.id}}</a>
+            </td>
+        </tr>`; {{/each}}
+    </script>
     <script>
         $('#addModal').modal({
             show: false,
@@ -148,18 +160,8 @@
 
         function loadData() {
             category.get(function(res) {
-                var str = '';
-                //遍历数据，拼接str
-                res.data.forEach(function(item) {
-                    str += ` 
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.slug}</td>
-                    <td class="text-center ">
-                        <a href="javascript:; " class="btn btn-info btn-xs redact " data-myid="${item.id} " data-name="${item.name} "data-slug="${item.slug} ">编辑${item.id}</a>
-                        <a href="javascript:; " class="btn btn-danger btn-xs deleted " data-id="${item.id} " >删除${item.id}</a>
-                    </td>
-                </tr>`;
+                var str = template('moban', {
+                    arr: res.data
                 });
                 //最终，把拼接号的结果放到
                 $('tbody').html(str);
