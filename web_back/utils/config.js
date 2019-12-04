@@ -26,6 +26,6 @@ var apis = {
     //-------------文章接口
     article_get: baseUrl + 'admin/search', //获取文章
     article_add: baseUrl + 'admin/article_publish', //添加文字
-    category_del: baseUrl + 'admin/article_delete', //删除文字
-    category_edit: baseUrl + 'admin/category_edit', //编辑文字
+    article_del: baseUrl + 'admin/article_delete', //删除文字
+    article_edit: baseUrl + 'admin/article_edit', //编辑文字
 }

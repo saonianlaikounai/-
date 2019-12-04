@@ -16,12 +16,21 @@ var article = {
             contentType: false
         });
     },
-    edit: function(callback) {
-
+    edit: function(fd, callback) {
+        $.ajax({
+            type: "POST",
+            url: apis.article_edit,
+            data: fd,
+            success: function(res) {
+                callback(res);
+            },
+            processData: false,
+            contentType: false
+        });
     },
     del: function(id, callback) {
-        $.get(apis.category_del, { id }, function(res) {
+        $.get(apis.article_del, { id }, function(res) {
             callback(res);
-        })
-    }
+        });
+    },
 }

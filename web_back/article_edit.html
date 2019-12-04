@@ -27,25 +27,21 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" value="文章标题文字">
+                        <input type="email" name="title" class="form-control" id="inputEmail3" value="文章标题文字">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
                         <img src="images/pic06.jpg" class="article_cover">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="exampleInputFile" name="cover">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option>类别一</option>
-                            <option>类别二</option>
-                            <option>类别三</option>
-                            <option selected>类别四</option>
-                            <option>类别五</option>
+                        <select class="form-control" name="type" id="categoryContainer">
+                            <!--  -->
                         </select>
                     </div>
                 </div>
@@ -54,7 +50,7 @@
                     <div class="col-sm-4">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" value="2019-05-17" id="dateinput">
+                            <input type="text" name="date" class="form-control" value="2019-05-17" id="dateinput">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"
                                     onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -71,13 +67,66 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">修改</button>
+                        <button type="button" class="btn btn-success">修改</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script src="utils/config.js"></script>
+    <script src="utils/article.js"></script>
+    <script src="utils/category.js"></script>
+    <script src="utils/template-web.js"></script>
+    <script type="text/html" id="category">
+        {{each arr v}}
+        <option value="{{v.id}}">{{v.name}}</option>
+        {{/each}}
+    </script>
+    <script>
+        category.get(function(res) {
+            var str = template('category', {
+                arr: res.data
+            });
+            $('select').html(str);
+        })
 
+        var str = window.location.search;
+        var id = str.substr(4);
+        article.get({
+            id
+        }, function(res) {
+            console.log(res);
+            $('#inputEmail3').val(res.data.title);
+            $('.article_cover').prop('src', res.data.cover);
+            $('#dateinput').val(res.data.date)
+                // tinyMCE.activeEditor.setContent(res.data.content);
+            $('#rich_content').val(res.data.content)
+                // console.log(tinyMCE.activeEditor.getContent());
+            $("#categoryContainer").val(res.data.type);
+        });
+        $('.btn-success').click(function() {
+            var fd = new FormData(document.querySelector('form'));
+            //使用formdata，要检查表单各项有没有name属性，name属性值是否对应
+            //追加state为已发布
+            fd.append('id', id);
+            // 修改一项内容
+            fd.set('content', tinyMCE.activeEditor.getContent());
+            //使用准备好的方法完成添加
+            article.edit(fd, function(res) {
+                if (res.code === 200) {
+                    alert('修改成功');
+                    location.href = 'article_list.html';
+                } else {
+                    alert(res.msg)
+                }
+            })
+        })
+        $('#exampleInputFile').change(function() {
+            var file = this.files[0];
+            var url = URL.createObjectURL(file);
+            $('.article_cover').attr('src', url);
+        });
+    </script>
 </body>
 
 </html>

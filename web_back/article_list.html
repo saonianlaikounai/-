@@ -103,7 +103,7 @@
 
 
             <td class="text-center">
-                <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+                <a href="article_edit.html?id={{val.id}}" class="btn btn-default btn-xs" data-id="{{val.id}}">编辑</a>
                 <a href="javascript:;" class="btn btn-danger btn-xs" data-id="{{val.id}}">删除</a>
             </td>
         </tr>
@@ -140,11 +140,7 @@
                 }
             });
         };
-        //---------------------------编辑----------------
-        $('body').on('click', '.btn-default', function() {
-                location.href = 'artcle_edit.html';
-            })
-            //--------------------------删除---------------
+        //--------------------------删除---------------
 
         $('body').on('click', '.btn-danger', function() {
             // alert(132)
