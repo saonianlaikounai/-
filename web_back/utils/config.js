@@ -24,6 +24,6 @@ var deleteCategory = 'http://localhost:8000/admin/category_delete';
 var redact = 'http://localhost:8000/admin/category_edit';
 var apis = {
     //-------------文章接口
-    article_get: baseUrl + 'admin/search' //获取文章
-        ,
+    article_get: baseUrl + 'admin/search', //获取文章
+    article_add: baseUrl + 'admin/article_publish'
 }
