@@ -9,7 +9,6 @@ var article = {
             type: "POST",
             url: apis.article_add,
             data: fd,
-            dataType: "dataType",
             success: function(res) {
                 callback(res);
             },

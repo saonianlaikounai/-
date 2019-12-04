@@ -27,24 +27,20 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="文章标题">
+                        <input type="email" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" name="cover" id="exampleInputFile">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control" name="type">
+                            <!-- 这里放分类 -->
                         </select>
                     </div>
                 </div>
@@ -53,7 +49,7 @@
                     <div class="col-sm-4">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
+                            <input name="date" type="text" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"
                                     onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -72,14 +68,52 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">发布</button>
-                        <button type="submit" class="btn btn-default">存为草稿</button>
+                        <button type="button" class="btn btn-success">发布</button>
+                        <button type="button" class="btn btn-default">存为草稿</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="utils/config.js"></script>
+    <script src="utils/article.js"></script>
+    <script src="utils/category.js"></script>
+    <script src="utils/template-web.js"></script>
+    <script type="text/html" id="category">
+        {{each arr v}}
+        <option value="{{v.id}}">{{v.name}}</option>
+        {{/each}}
+    </script>
+    <script>
+        //获取分类，渲染到下拉框中
+        category.get(function(res) {
+            var str = template('category', {
+                arr: res.data
+            });
+            $('select').html(str);
+        })
+
+
+        //注册单击事件
+        $('.btn-success').click(function() {
+            //使用表fordata收集表单各项的值
+            var fd = new FormData(document.querySelector('form'));
+            //使用formdata，要检查表单各项有没有name属性，name属性值是否对应
+            //追加state为已发布
+            fd.append('state', '已发布');
+            //修改一项内容
+            fd.set('content', tinyMCE.activeEditor.getContent());
+            //使用准备好的方法完成添加
+            article.add(fd, function(res) {
+                if (res.code === 201) {
+                    // console.log(res);
+                    //成功跳转到列表页
+                    location.href = 'article_list.html';
+                }
+            })
+        });
+    </script>
 </body>
 
 </html>
