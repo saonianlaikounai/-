@@ -30,21 +30,21 @@
                 <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
                 <ul class="level_two">
                     <li class="up"></li>
-                    <li><a href="#">最 新</a></li>
-                    <li><a href="#">科 技</a></li>
-                    <li><a href="#">股 市</a></li>
-                    <li><a href="#">商 品</a></li>
-                    <li><a href="#">外 汇</a></li>
-                    <li><a href="#">公 司</a></li>
+                    <!--<li><a href="#">最 新</a></li>-->
+                    <!--<li><a href="#">科 技</a></li>-->
+                    <!--<li><a href="#">股 市</a></li>-->
+                    <!--<li><a href="#">商 品</a></li>-->
+                    <!--<li><a href="#">外 汇</a></li>-->
+                    <!--<li><a href="#">公 司</a></li>-->
                 </ul>
             </div>
             <ul class="left_menu fl">
-                <li><a href="#">最 新</a></li>
-                <li><a href="#">科 技</a></li>
-                <li><a href="#">股 市</a></li>
-                <li><a href="#">商 品</a></li>
-                <li><a href="#">外 汇</a></li>
-                <li><a href="#">公 司</a></li>
+                <!--<li><a href="#">最 新</a></li>-->
+                <!--<li><a href="#">科 技</a></li>-->
+                <!--<li><a href="#">股 市</a></li>-->
+                <!--<li><a href="#">商 品</a></li>-->
+                <!--<li><a href="#">外 汇</a></li>-->
+                <!--<li><a href="#">公 司</a></li>-->
             </ul>
             <ul class="right_menu fr">
                 <li><a href="#">科技专题</a></li>
@@ -228,6 +228,21 @@
             $('.breadcrumb').after(str);
         })
     </script>
+    <script type="text/html" id="fenlei">
+        {{each fenlei v}}
+        <li><a href="list.html?id={{v.id}}&name={{v.name}}">{{v.name}}</a></li>
+        {{/each}}
+    </script>
+    <script>
+        category.show(function(res) {
+            var str = template('fenlei', {
+                fenlei: res.data
+            });
+            $('.level_two').append(str);
+            $('.left_menu').html(str);
+        })
+    </script>
+    <!-- ------------------导航分类结束----------------- -->
 </body>
 
 </html>

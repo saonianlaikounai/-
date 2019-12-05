@@ -161,7 +161,6 @@
 
         //------------------------------获取列别------------
         loadData();
-
         function loadData() {
             category.get(function(res) {
                 var str = template('moban', {
@@ -184,32 +183,34 @@
             });
         });
         //----------------------编辑功能----------------------
-        $('body').on('click', '.redact', function() {
+        $('body').on('click', '.redact', function(e) {
+            e.stopPropagation();
             var data = this.dataset;
             $('#editModal').modal('show');
             $('#cate-edit-name').val(data.name);
             $('#cate-edit-slug').val(data.slug);
             $('#cate-edit-id').val(data.id);
-            $('#model_save').click(function(e) {
-                // e.stopPropagation();
-                var inputName = $('#cate-edit-name').val().trim();
-                var inputSlug = $('#cate-edit-slug').val().trim();
-                var inputId = that.attr('data-myid');
-                console.log(inputName, inputSlug, inputId);
+            var that = $(this);
+        });
+        $('#model_save').click(function(e) {
+            e.stopPropagation();
+            var inputName = $('#cate-edit-name').val().trim();
+            var inputSlug = $('#cate-edit-slug').val().trim();
+            var inputId = $('#cate-edit-id').val().trim();
+            console.log(inputName, inputSlug, inputId);
 
-                if (inputId === '' || inputSlug === '') {
-                    alert('不能为空');
-                    return;
-                };
-                category.edit(inputId, inputName, inputSlug, function(res) {
-                    loadData();
-                    $('#editModal').modal('hide');
-                })
-            });
-            $('#close').click(function() {
-                //点击关闭按钮事件
-                $('#editModal').modal('hide'); //让模态框隐藏
-            });
+            if (inputId === '' || inputSlug === '') {
+                alert('不能为空');
+                return;
+            };
+            category.edit(inputId, inputName, inputSlug, function(res) {
+                $('#editModal').modal('hide');
+                loadData();
+            })
+        });
+        $('#close').click(function() {
+            //点击关闭按钮事件
+            $('#editModal').modal('hide'); //让模态框隐藏
         });
     </script>
 </body>

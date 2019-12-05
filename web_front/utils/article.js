@@ -26,5 +26,10 @@ var article = {
         $.get(apis.article_article, { id }, function(res) {
             callback(res);
         })
+    },
+    search : function (data, callback) {
+        $.get(apis.article_search,data,function (res) {
+            callback(res);
+        });
     }
 }
