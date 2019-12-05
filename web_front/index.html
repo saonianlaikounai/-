@@ -46,26 +46,8 @@
     <div class="main_con clearfix">
         <div class="left_con">
             <ul class="focus_list">
-                <li class="first">
-                    <a href="#"><img src="images/pic01.jpg" alt=""></a>
-                    <p>图片说明</p>
-                </li>
-                <li>
-                    <a href="#"><img src="images/pic02.jpg" alt=""></a>
-                    <p>图片说明图片说明图片说明图片说明图片说明图片说明图片说明图片说明图片说明</p>
-                </li>
-                <li>
-                    <a href="#"><img src="images/pic03.jpg" alt=""></a>
-                    <p>图片说明</p>
-                </li>
-                <li>
-                    <a href="#"><img src="images/pic05.jpg" alt=""></a>
-                    <p>图片说明</p>
-                </li>
-                <li>
-                    <a href="#"><img src="images/pic06.jpg" alt=""></a>
-                    <p>图片说明</p>
-                </li>
+
+                <!--  -->
             </ul>
 
             <div class="common_title">
@@ -214,6 +196,8 @@
     <script src="js/template-web.js"></script>
     <script src="utils/config.js"></script>
     <script src="utils/category.js"></script>
+    <script src="utils/article.js"></script>
+    <!-- ------------------导航分类开始------------------ -->
     <script type="text/html" id="fenlei">
         {{each fenlei v}}
         <li><a href="">{{v.name}}</a></li>
@@ -221,13 +205,37 @@
     </script>
     <script>
         category.show(function(res) {
-            var str = template('fenlei', {
-                fenlei: res.data
-            });
-            $('.level_two').append(str);
-            $('.left_menu').html(str);
-        })
+                var str = template('fenlei', {
+                    fenlei: res.data
+                });
+                $('.level_two').append(str);
+                $('.left_menu').html(str);
+            })
+            // <!-- ------------------导航分类结束----------------- -->
     </script>
+    <!-- --------------------------------热点图开始-------------- -->
+
+    <script type="text/html" id="redian">
+        {{each redian v k}} {{if k === 0}}
+        <li class="first">
+            {{else}}
+            <li>
+                {{/if}}
+                <a href="#"><img src="{{v.cover}}" alt=""></a>
+                <p>{{v.title}}</p>
+            </li>
+            {{/each}}
+    </script>
+    <script>
+        article.hotpic(function(res) {
+            var str = template('redian', {
+                redian: res.data
+            });
+            $('.focus_list').html(str);
+        });
+    </script>
+    <!-- --------------------------------热点图结束------------- -->
+
 </body>
 
 </html>
