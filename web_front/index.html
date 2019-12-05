@@ -63,14 +63,15 @@
         <div class="right_con">
             <div class="common_wrap">
                 <h3><i class="fa fa-bar-chart"></i> 一周热门排行</h3>
-                <ul class="content_list">
-                    <li><span class="first">1</span><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
+                <ul class="content_list rank">
+                    <!-- 热门排行数据 -->
+                    <!-- <li><span class="first">1</span><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
                     <li><span class="second">2</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
                     <li><span class="third">3</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
                     <li><span>4</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
                     <li><span>5</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
                     <li><span>6</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span>7</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+                    <li><span>7</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li> -->
                 </ul>
             </div>
             <div class="common_wrap">
@@ -165,7 +166,7 @@
             {{else}}
             <li>
                 {{/if}}
-                <a href="#"><img src="{{v.cover}}" alt=""></a>
+                <a href="article.html?id={{v.id}}"><img src="{{v.cover}}" alt=""></a>
                 <p>{{v.title}}</p>
             </li>
             {{/each}}
@@ -183,8 +184,8 @@
     <script type="text/html" id="latest">
         {{each latest v}}
         <div class="common_news_list">
-            <a href="#" class="list_pic"><img src="{{v.cover}}" alt=""></a>
-            <h4><a href="#">{{v.title}}</a></h4>
+            <a href="article.html?id={{v.id}}" class="list_pic"><img src="{{v.cover}}" alt=""></a>
+            <h4><a href="article.html?id={{v.id}}">{{v.title}}</a></h4>
             <p>{{v.intro}}
             </p>
             <div class="new_info">
@@ -206,8 +207,35 @@
     </script>
     <!-- -----------------------最新资讯结束--------------- -->
     <!-- -----------------------热门排行开始--------------- -->
+    <script type="text/html" id="rank">
+        {{each rank v k}}{{if k === 0}}
+        <li><span class="first">{{k+1}}</span> {{else if k === 1}}
+            <li><span class="second">{{k+1}}</span> {{else if k === 2}}
+                <li><span class="third">{{k+1}}</span> {{else}}
+                    <li><span>{{k+1}}</span> {{/if}}
+                        <a href="article.html?id={{v.id}}">{{v.title}}</a>
+                    </li>
+                    {{/each}}
+    </script>
+    <script>
+        article.rank(function(res) {
+            var str = template('rank', {
+                rank: res.data
+            });
+            $('.rank').append(str);
+            console.log(res);
 
+        })
+    </script>
     <!-- -----------------------热门排行结束--------------- -->
+    <!-- -----------------------最新评论开始--------------- -->
+    <script type="text/html" id="latest_comment"></script>
+    <script>
+        article.comment(function(res) {
+
+        })
+    </script>
+    <!-- -----------------------最新评论结束--------------- -->
 
 </body>
 
