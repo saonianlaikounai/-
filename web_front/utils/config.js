@@ -10,4 +10,5 @@ var apis = {
     article_article: baseUrl + 'article',//文章详细内容接口
     article_search: baseUrl + 'search',//文章列表接口
     article_focus : baseUrl+ 'focus',//焦点图接口
+    article_get_comments : baseUrl + 'get_comments', //评论列表接口
 }

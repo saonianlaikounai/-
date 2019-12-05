@@ -31,5 +31,15 @@ var article = {
         $.get(apis.article_search,data,function (res) {
             callback(res);
         });
+    },
+    focus:function (callback) {
+        $.get(apis.article_focus,function (res) {
+            callback(res);
+        });
+    },
+    get_comments : function (id,callback) {
+        $.get(apis.article_get_comments,id,function (res) {
+            callback(res);
+        });
     }
 }

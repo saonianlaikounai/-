@@ -83,13 +83,7 @@
             <div class="common_wrap">
                 <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
                 <ul class="content_list guanzhu_list">
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+                    <!--放数据-->
                 </ul>
             </div>
         </div>
@@ -201,7 +195,7 @@
     <script type="text/html" id="latest_comment">
         {{each arr v}}
         <li>
-            <span>山</span>
+            <span>{{v.name}}</span>
             <b><em>{{v.name}}</em> {{v.dt}}</b>
             <strong>{{v.content}}</strong>
         </li>
@@ -216,6 +210,23 @@
         })
     </script>
     <!-- -----------------------最新评论结束--------------- -->
+    <!--------------------------焦点图开始--------------------->
+    <script type="text/html" id="focus">
+        {{each arr v}}
+        <li><a href="list.html?id={{v.id}}">{{v.title}}</a></li>
+        {{/each}}
+    </script>
+    <script>
+        article.focus(function (res) {
+            console.log(res);
+            var str = template('focus',{
+                arr : res.data
+            });
+            $('.guanzhu_list').append(str)
+        })
+    </script>
+    <!--------------------------焦点图结束--------------------->
+
 </body>
 
 </html>
