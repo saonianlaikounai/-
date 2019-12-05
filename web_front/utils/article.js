@@ -21,5 +21,10 @@ var article = {
         $.get(apis.article_comment, function(res) {
             callback(res);
         })
+    },
+    article: function(id, callback) {
+        $.get(apis.article_article, { id }, function(res) {
+            callback(res);
+        })
     }
 }

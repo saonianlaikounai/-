@@ -58,15 +58,14 @@
             <div class="breadcrumb">
                 当前位置： <a href="#">首页</a> &gt; <a href="#">科技</a> &gt; 文章详情
             </div>
-            <h3 class="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
-            <div class="article_info">杰克 发布于 2019-05-08 07:08:46&nbsp;&nbsp;&nbsp;分类: 奇趣事&nbsp;&nbsp;&nbsp;阅读:
-                (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
+            <!-- <h3 class="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
+            <div class="article_info">杰克 发布于 2019-05-08 07:08:46&nbsp;&nbsp;&nbsp;分类: 奇趣事&nbsp;&nbsp;&nbsp;阅读: (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
             <div class="article_con">
 
                 <p>“上天入地”还不够？硅谷“钢铁侠”马斯克名下一家低调的公司最近又融了一大笔钱。</p>
 
-                <p>马斯克投资的一家小型且不为人熟知的脑机接口（brain-computer
-                    interface）公司Neuralink披露，该公司融到了3900万美元，虽然不及公司计划的融资额5100万美元，但也比上次的融资多了不少。</p>
+                <p>马斯克投资的一家小型且不为人熟知的脑机接口（brain-computer interface）公司Neuralink披露，该公司融到了3900万美元，虽然不及公司计划的融资额5100万美元，但也比上次的融资多了不少。
+                </p>
 
                 <p>两年前该公司曾计划融资1亿美元，但只拿到了2700万美元的融资。</p>
 
@@ -76,9 +75,8 @@
 
             </div>
             <div class="article_links">
-                上一篇： <a href="#">世界第一台可以玩游戏的冰箱</a><br>
-                下一篇： <a href="#">世界第一个可以玩游戏的马桶、世界上第一个可以玩游戏的茶杯</a>
-            </div>
+                上一篇： <a href="#">世界第一台可以玩游戏的冰箱</a><br> 下一篇： <a href="#">世界第一个可以玩游戏的马桶、世界上第一个可以玩游戏的茶杯</a>
+            </div> -->
 
             <form action="" class="comment_form">
                 <div class="form_group">
@@ -204,7 +202,32 @@
         <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
-
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/template-web.js"></script>
+    <script src="utils/config.js"></script>
+    <script src="utils/category.js"></script>
+    <script src="utils/article.js"></script>
+    <script type="text/html" id="art">
+        <h3 class="article_title">{{title}}</h3>
+        <div class="article_info">
+            {{author}} 发布于 {{date}}&nbsp;&nbsp;&nbsp; 分类: {{type}}&nbsp;&nbsp;&nbsp; 阅读: ({{read}})&nbsp;&nbsp;&nbsp; 评论: ({{comment}})
+        </div>
+        <div class="article_con">
+            {{@content}}
+        </div>
+        <div class="article_links">
+            {{if prev}} 上一篇： <a href="article.html?id={{prev.id}}">{{prev.title}}</a><br> {{else}} 上一篇：
+            <a href="javascript:;">没有了~</a><br> {{/if}} {{if next}} 下一篇： <a href="article.html?id={{next.id}}">{{next.title}}</a> {{else}} 下一篇：
+            <a href="javascript:;">没有了~</a> {{/if}}
+        </div>
+    </script>
+    <script>
+        var id = location.search.replace(/\D/g, '');
+        article.article(id, function(res) {
+            var str = template('art', res.data);
+            $('.breadcrumb').after(str);
+        })
+    </script>
 </body>
 
 </html>
