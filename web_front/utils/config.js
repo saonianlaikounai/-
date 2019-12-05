@@ -11,4 +11,5 @@ var apis = {
     article_search: baseUrl + 'search',//文章列表接口
     article_focus : baseUrl+ 'focus',//焦点图接口
     article_get_comments : baseUrl + 'get_comments', //评论列表接口
-}
+    article_post_comment : baseUrl + 'post_comment',//发表评论接口
+};

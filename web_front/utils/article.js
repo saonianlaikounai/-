@@ -41,5 +41,10 @@ var article = {
         $.get(apis.article_get_comments,id,function (res) {
             callback(res);
         });
+    },
+    post_comment: function (data,callback) {
+        $.post(apis.article_post_comment,data,function (res) {
+            callback(res);
+        });
     }
 }
