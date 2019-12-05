@@ -242,13 +242,16 @@
         {{/each}}
     </script>
     <script>
-        article.get_comments(id,function (res) {
-            console.log(res);
-            var str  = template('get_comments',{
-                arr : res.data
+        function loadData() {
+            article.get_comments(id,function (res) {
+                console.log(res);
+                var str  = template('get_comments',{
+                    arr : res.data
+                });
+                $('.comment_list_con').append(str);
             });
-            $('.comment_list_con').append(str);
-        });
+        };
+        loadData();
     </script>
     <!--------------------------评论列表结束------------------>
     <!--------------------------发表评论开始------------------>
@@ -260,6 +263,7 @@
             // console.log(data.name,data.content)
             article.post_comment(data,function (res) {
                 alert(res.msg);
+                loadData();
             });
         });
     </script>
