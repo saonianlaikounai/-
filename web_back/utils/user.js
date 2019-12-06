@@ -22,5 +22,11 @@ var user = {
         $.get(baseUrl + 'admin/getuser', function(res) {
             callback(res);
         })
+    },
+    comment_search:function (callback) {
+        $.get(apis.article_comment_search,function (res) {
+            callback(res);
+        });
     }
+
 }

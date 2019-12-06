@@ -28,4 +28,5 @@ var apis = {
     article_add: baseUrl + 'admin/article_publish', //添加文字
     article_del: baseUrl + 'admin/article_delete', //删除文字
     article_edit: baseUrl + 'admin/article_edit', //编辑文字
+    article_comment_search: baseUrl + 'admin/comment_search',//评论列表接口
 }
