@@ -226,7 +226,15 @@
         })
     </script>
     <!--------------------------焦点图结束--------------------->
-
+    <!--------------------------搜索功能开始------------------->
+    <script></script>
+    <script>
+        $('.search_btn').click(function () {
+            var s = $('.search_txt').val().trim();
+            location.href = 'linst.html?keywords='+ s;
+        });
+    </script>
+    <!--------------------------搜索功能结束------------------->
 </body>
 
 </html>

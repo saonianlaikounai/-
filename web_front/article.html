@@ -243,6 +243,7 @@
     </script>
     <script>
         function loadData() {
+            $('.comment_list_con').empty();
             article.get_comments(id,function (res) {
                 console.log(res);
                 var str  = template('get_comments',{

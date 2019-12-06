@@ -167,17 +167,36 @@
             var a = item.split('=');
             obj[a[0]] = a[1];
         });
-        decodeURIComponent(obj.name)
-        $('#type').text(decodeURIComponent(obj.name));
+        //判断，如果点击的分类跳转到list页面，则获取name，入手点击的搜索跳转到list页面则获取keywords
+        if (obj.name){
+            $('#type').text(decodeURIComponent(obj.name));
+
+        } else if (obj.keywords) {
+            $('#type').text(decodeURIComponent(obj.keywords));
+        }else {
+            $('#type').text(decodeURIComponent('无'));
+        }
         var data = {
-            type : obj.id,
-            page : 1
+            page : 1,
+        };
+        //如果有搜索搜索关键字，则加入key
+        if (obj.keywords){
+            data.key = decodeURIComponent(obj.keywords);
+        };
+        //判断，如果有typr，则加入id
+        if (obj.id){
+            data.type = obj.id;
         };
         article.search(data,function (res) {
             var str = template('list',{
                 arr :res.data
             });
             $('.list_title').after(str);
+        });
+        //当前页面的加载功能
+        $('.search_btn').click(function () {
+            var  s = $('.search_txt').val().trim();
+            location.href = 'list.html?keywords=' + s;
         });
     </script>
     <!--------------------------焦点图开始--------------------->
