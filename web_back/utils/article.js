@@ -33,4 +33,9 @@ var article = {
             callback(res);
         });
     },
+    comment_get:function (id,callback) {
+        $.get(apis.article_get,{id},function (res) {
+            callback(res);
+        });
+    }
 }

@@ -37,8 +37,8 @@ var article = {
             callback(res);
         });
     },
-    get_comments : function (id,callback) {
-        $.get(apis.article_get_comments,id,function (res) {
+    get_comments : function (article_id,callback) {
+        $.get(apis.article_get_comments,{article_id},function (res) {
             callback(res);
         });
     },

@@ -122,6 +122,7 @@
 
         function loadData() {
             article.get(data, function(res) {
+                console.log(data);
                 var str = template('article', {
                     xyz: res.data
                 });

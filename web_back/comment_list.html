@@ -273,6 +273,7 @@
     <script src="utils/config.js"></script>
     <script src="utils/template-web.js"></script>
     <script src="utils/user.js"></script>
+    <script src="utils/article.js"></script>
     <script>
         // 设置左侧菜单
         $('#release_btn').click(function(){
@@ -289,7 +290,7 @@
             {{/if}}
             <td>{{v.name}}</td>
             <td>{{v.content}}</td>
-            <td>《世界，你好》</td>
+            <td id="open" data-id="{{v.article_id}}">{{v.article_id}}</td>
             <td>{{v.dt}}</td>
             <td>{{v.state}}</td>
             <td class="text-center">
@@ -307,14 +308,23 @@
     </script>
     <script>
         user.comment_search(function (res) {
-            // console.log(res);
+            console.log(res);
             var str = template('comment_search',{
-                comment:res.data
+                comment:res.data,
             });
             $('tbody').append(str);
-        })
+            loadData($('#open').attr('data-id'));
+        });
+        function loadData(id) {
+            console.log(id);
+            article.comment_get(id,function (res) {
+                $('#open').text(res.data.title);
+            })
+        }
+        loadData()
+        //<!--------------------------评论列表结束-------------------------->
     </script>
-    <!--------------------------评论列表结束-------------------------->
+
 </body>
 
 </html>

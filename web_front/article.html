@@ -243,8 +243,10 @@
     </script>
     <script>
         function loadData() {
+            var article_id= location.search.replace(/\D/g, '');
+            console.log(article_id);
             $('.comment_list_con').empty();
-            article.get_comments(id,function (res) {
+            article.get_comments(article_id,function (res) {
                 console.log(res);
                 var str  = template('get_comments',{
                     arr : res.data
@@ -261,6 +263,7 @@
             var data = {};
             data.content =$('.comment_input').val();
             data.name = $('.comment_name').val();
+            data.article_id = id;
             // console.log(data.name,data.content)
             article.post_comment(data,function (res) {
                 alert(res.msg);
